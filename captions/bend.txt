@@ -1,0 +1,16 @@
+Every AI you've ever used is secretly doing one thing: bending space. 🌀
+
+What a neural network actually does, step by step (Math of AI, Ep. 1):
+
+1️⃣ The problem: separate blue points from red. They're tangled, so no straight line can do it (the best one still gets 22 points wrong).
+2️⃣ A matrix moves every point of the plane at once: x → Wx + b. Lines stay straight, and every area gets multiplied by |det W|. That's linear algebra.
+3️⃣ Then a nonlinear "bend": tanh squashes every coordinate into (−1, 1). Without this step, stacking matrices would just give you one more matrix.
+4️⃣ Matrix, bend, matrix, bend… and the tangled data becomes splittable by ONE straight line. Run it backwards and that line turns out to be a curve snaking between the two groups.
+5️⃣ Who picks the 15 numbers? Gradient descent (my earlier video). Watch accuracy sit at 90% for over a thousand steps, then snap to 100%.
+
+This is real. I trained this exact network myself (2 → 2 → 2, tanh). Every frame shows its real weights, and the training replay uses its real checkpoints.
+GPT-3 runs the same matrix-then-nonlinearity recipe (plus attention, which mixes words together) in 12,288 dimensions across 96 layers, with 175 billion numbers.
+
+Save this for linear algebra class 📌 and send it to someone who thinks AI is magic.
+
+#machinelearning #linearalgebra #ai #math #neuralnetworks

@@ -1,0 +1,17 @@
+GPT-3 has 175 billion knobs. When it's wrong, how does it know which ones to blame? 🔍
+
+Backpropagation, the algorithm behind every neural network (Math of AI, Ep. 2):
+
+1️⃣ Shrink the network to just 2 knobs: a number goes in, gets multiplied, bent (tanh), multiplied again.
+2️⃣ It should output 1. It outputs 0.46. Way off.
+3️⃣ Nudge knob 1 and watch the ripple: each step scales the change by its local slope.
+4️⃣ Multiply those slopes together and you get knob 1's exact "blame". That's the chain rule from calc.
+5️⃣ Run it backwards and EVERY knob gets its blame in one sweep, instead of 175 billion separate tests.
+
+This is real: I checked the chain-rule answer by actually nudging the knob by 0.001, and it matches. Then gradient descent trains it until the error hits zero.
+
+If you're learning the chain rule right now, THIS is what it's for.
+
+Save this 📌 and send it to someone in calc.
+
+#machinelearning #calculus #ai #math #neuralnetworks

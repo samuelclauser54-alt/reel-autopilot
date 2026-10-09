@@ -1,0 +1,15 @@
+Every AI image you've ever seen started as pure static. 📺➡️🖼️
+
+How AI image generators (Stable Diffusion, Sora, DALL·E) actually work, the "diffusion" trick:
+
+1️⃣ Training: take a real image and add random noise, a little at a time. After 1,000 steps nothing of the picture is left.
+2️⃣ Show a neural network a noisy image and ask ONE question: what noise did I add? Score its guess with loss = ‖ε − ε_θ‖² and fix its knobs with gradient descent (yes, the same idea from my last video).
+3️⃣ Generation: start from pure random static. The network guesses the noise, you subtract a little, and you repeat.
+4️⃣ Why it works: every image is a point in a huge space (784 dimensions for a 28×28 image). The network's noise guess points straight toward "looks like a real image"; mathematically it's the gradient of log-probability. Follow the arrows and noise flows into a picture that never existed.
+
+This is real: I trained the model in the video myself. It's a 2.9M-parameter U-Net that practised on 1,024,000 noisy handwritten digits, and the 16 digits at the end were drawn by it from static. The "AI" point cloud is a second model I trained in 2D so you can actually see the arrows.
+(Big models like Stable Diffusion work in a compressed "latent" version of the image, but it's the same math.)
+
+Save this for when someone says AI "copies and pastes" images 📌 and send it to a friend who uses Midjourney.
+
+#ai #machinelearning #math #stablediffusion #computerscience

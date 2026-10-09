@@ -1,0 +1,15 @@
+Every matrix has secret directions it can't turn. ↗️
+
+Eigenvectors, explained visually:
+
+1️⃣ A matrix moves every point in space at once.
+2️⃣ Almost every arrow gets knocked off its line…
+3️⃣ …but a few stay on their line. They only stretch or shrink. Those are eigenvectors: Av = λv.
+4️⃣ λ (the eigenvalue) is the stretch factor. To find it, slide λ until A − λI squashes space flat: det(A − λI) = 0.
+5️⃣ The wild part: apply the matrix again and again, and every arrow swings toward the biggest eigenvector (power iteration).
+
+That's how Google ranked the internet: the web is a giant matrix, and PageRank is its top eigenvector.
+
+Save this for linear algebra 📌 and send it to someone who thinks matrices are pointless.
+
+#linearalgebra #math #google #machinelearning #eigenvalues

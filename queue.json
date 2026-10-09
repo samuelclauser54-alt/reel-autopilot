@@ -1,0 +1,62 @@
+[
+  {
+    "id": "descent",
+    "title": "How AI actually learns (gradient descent)",
+    "video": "descent.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "embed",
+    "title": "How ChatGPT reads words (embeddings)",
+    "video": "embed.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "bend",
+    "title": "Neural nets bend space (Math of AI Ep. 1)",
+    "video": "bend.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "blame",
+    "title": "Backpropagation (Math of AI Ep. 2)",
+    "video": "blame.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "diffusion",
+    "title": "How AI makes images from static",
+    "video": "diffusion.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "attention",
+    "title": "Attention: how ChatGPT knows what 'it' means",
+    "video": "attention.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "overfit",
+    "title": "Overfitting: the perfect-score AI",
+    "video": "overfit.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "spam",
+    "title": "Spam filters (logistic regression)",
+    "video": "spam.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "gps",
+    "title": "Why GPS needs Einstein",
+    "video": "gps.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "eigen",
+    "title": "Eigenvectors and PageRank",
+    "video": "eigen.mp4",
+    "status": "queued"
+  }
+]

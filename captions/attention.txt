@@ -1,0 +1,16 @@
+How does ChatGPT know what "it" means? One formula. 🧠
+
+"The trophy didn't fit in the suitcase because it was too big." What's "it"?
+
+1️⃣ Every word becomes a vector, a long list of numbers.
+2️⃣ The word "it" sends out a question (a query). Every other word holds up a key.
+3️⃣ Dot the query with each key: a big dot product means "these two match."
+4️⃣ Softmax turns the scores into weights that add to 1, so "it" looks mostly at trophy.
+5️⃣ Change one word ("too small") and the same formula now points at suitcase.
+6️⃣ Then it mixes in those words' values, so "it" carries their meaning.
+
+That's attention: softmax(QKᵀ/√d)·V. GPT-3 does it with 96 heads in each of 96 layers.
+
+Save this 📌 and send it to someone who thinks ChatGPT just autocompletes.
+
+#ai #chatgpt #machinelearning #math #transformers

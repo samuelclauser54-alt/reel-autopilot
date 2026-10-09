@@ -1,0 +1,17 @@
+This AI got a perfect score. And it's completely useless. 💯🚫
+
+Overfitting, the number one trap in machine learning:
+
+1️⃣ Training = find the curve with the smallest squared error.
+2️⃣ A straight line is too simple. It misses the bend.
+3️⃣ Give it 12 knobs and it hits every single point. Error: zero.
+4️⃣ Then show it data it's never seen… way off. It memorized the noise instead of learning the pattern.
+5️⃣ The fix (ridge regression): make big weights cost something. Add λ·Σw². The weights shrink from ~400 to ~4 and the wiggles vanish.
+
+Every curve in this video is a real least-squares fit I ran on real noisy data.
+
+Same with practice tests: memorize the answers and a perfect score means nothing.
+
+Save this 📌 for your next stats or ML class.
+
+#machinelearning #ai #datascience #math #statistics

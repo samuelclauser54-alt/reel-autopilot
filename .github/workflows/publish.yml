@@ -1,0 +1,41 @@
+name: post-reel
+
+on:
+  schedule:
+    - cron: "17 23 * * *"   # 6:17 pm Chicago (5:17 pm in winter)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (don't actually post)"
+        type: boolean
+        default: true
+
+concurrency: post-reel   # never two runs at once -> never a double post
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Post next reel
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          MEDIA_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: python scripts/publish.py
+      - name: Save queue state
+        if: always()
+        run: |
+          git config user.name "reel-autopilot"
+          git config user.email "reel-autopilot@users.noreply.github.com"
+          git add queue.json
+          git diff --cached --quiet || (git commit -m "queue: post $(date -u +%F)" && git push)

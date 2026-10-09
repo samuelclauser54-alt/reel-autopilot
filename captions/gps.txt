@@ -1,0 +1,15 @@
+Your phone can't find you without Einstein. 🛰️📍
+
+GPS is just clocks and the speed of light:
+
+1️⃣ Every GPS satellite broadcasts one thing: the exact time.
+2️⃣ The signal arrives about 0.07 s late. Delay × speed of light = your distance (≈20,000 km).
+3️⃣ One satellite puts you on a circle. Three circles meet at exactly one spot.
+4️⃣ Your phone's clock is cheap (1 microsecond off = 300 m off), so it solves for the clock error too. That's why GPS needs 4 satellites.
+5️⃣ The twist: satellites move fast (special relativity, clocks run 7 μs/day slow) but sit in weaker gravity (general relativity, 45 μs/day fast). Net: +38 μs a day, about 11 km of error EVERY DAY.
+
+So engineers set every satellite clock to 10.22999999543 MHz instead of 10.23 MHz before launch. Relativity isn't just theory; it's in your pocket.
+
+Save this for physics class 📌 and send it to someone who thinks relativity is useless.
+
+#physics #einstein #gps #math #science

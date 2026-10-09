@@ -1,0 +1,17 @@
+ChatGPT has never read a single word. It does math on arrows. 🧠➡️
+
+How AI turns words into meaning:
+
+1️⃣ Every word becomes a list of numbers: a vector, an arrow in space (GPT-3 uses 12,288 numbers per word).
+2️⃣ Training pulls similar words together: animals in one region, food in another, countries in another.
+3️⃣ Directions carry meaning: king − man + woman lands closest to QUEEN. Paris − France + Italy = Rome. Nobody programmed that.
+4️⃣ Attention: each word looks at its neighbors and pulls in their meaning, so "bank" next to "river" drifts toward shore, and next to "cash" toward money.
+5️⃣ Stack that 96 layers deep and you get GPT.
+
+Every word position in this video is a real projection of real word vectors (GloVe). The king/queen and Paris/Rome results are the actual nearest words.
+
+If you're in linear algebra right now, THIS is what vectors and dot products are for.
+
+Save this 📌 and send it to someone who thinks ChatGPT "understands" English.
+
+#machinelearning #ai #chatgpt #linearalgebra #math
