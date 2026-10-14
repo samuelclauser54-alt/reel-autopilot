@@ -1,7 +1,12 @@
 """Post the next queued reel to Instagram. Runs once a day in GitHub Actions.
 
+Two slots a day, at a random minute inside each window (Chicago time):
+  morning 8:00-10:00, evening 5:00-7:00. Cron starts the job at the top of the
+  window (two crons per slot so daylight saving is covered); this script sleeps
+  to a random minute, then posts.
+
 Safety rules (to look like a normal creator, never like a bot):
-  * at most ONE post per run, and never two within 20 hours
+  * at most ONE post per run, and never two within 5 hours
   * never re-post something whose caption is already on the account
   * caption must have <= 5 hashtags and <= 2200 chars
   * reels unticked in the "Upcoming posts" issue are skipped
@@ -10,6 +15,7 @@ Env: IG_USER_ID, IG_ACCESS_TOKEN, MEDIA_BASE_URL, GITHUB_TOKEN, GITHUB_REPOSITOR
 """
 import json
 import os
+import random
 import re
 import sys
 import time
@@ -17,12 +23,51 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, "queue.json")
 IG = "https://graph.instagram.com/v25.0"
 DRY = os.environ.get("DRY_RUN", "") in ("1", "true")
-MIN_GAP = timedelta(hours=20)
+MIN_GAP = timedelta(hours=5)
+CHI = ZoneInfo("America/Chicago")
+WINDOWS = {"morning": (8, 10), "evening": (17, 19)}   # local hours [start, end)
+SCHEDULED = os.environ.get("GITHUB_EVENT_NAME") == "schedule"
+
+
+def wait_for_slot():
+    """Scheduled runs only: exit if we're outside a window (the other DST cron),
+    else sleep to a random minute before the window's last 15 minutes."""
+    now = datetime.now(CHI)
+    for name, (a, b) in WINDOWS.items():
+        start = now.replace(hour=a, minute=0, second=0, microsecond=0)
+        end = now.replace(hour=b, minute=0, second=0, microsecond=0) - timedelta(minutes=15)
+        if start - timedelta(minutes=30) <= now < end:
+            lo = max(now, start)
+            at = lo + timedelta(seconds=random.uniform(0, (end - lo).total_seconds()))
+            print(f"{name} slot: posting at {at:%H:%M} Chicago")
+            time.sleep((at - now).total_seconds())
+            return True
+    print(f"{now:%H:%M} Chicago is outside the posting windows (DST twin cron): nothing to do")
+    return False
+
+
+def refresh_token():
+    """Instagram tokens die after 60 days unless refreshed. Refresh on every
+    morning run; if Instagram hands back a *different* token we can't save it
+    from here, so leave a note in the issue telling the user to run token.sh."""
+    try:
+        r = http("GET", "https://graph.instagram.com/refresh_access_token",
+                 {"grant_type": "ig_refresh_token", "access_token": os.environ["IG_ACCESS_TOKEN"]})
+    except SystemExit as e:   # e.g. token under 24 h old: harmless
+        print("token refresh skipped:", e)
+        return None
+    days = int(r.get("expires_in", 0)) // 86400
+    print(f"token refreshed, good for {days} days")
+    if r.get("access_token") != os.environ["IG_ACCESS_TOKEN"]:
+        return ("⚠️ **Instagram token needs saving.** On your Mac, open Terminal and run "
+                "`~/reel-autopilot/scripts/token.sh refresh` (takes 5 seconds).")
+    return None
 
 
 def http(method, url, params=None, headers=None):
@@ -82,8 +127,8 @@ def unticked(issue):
     return set(re.findall(r"- \[ \] `([\w-]+)`", (issue or {}).get("body") or ""))
 
 
-def render_issue(queue):
-    lines = ["Untick a box to **skip** that reel. One reel posts per day, top to bottom.",
+def render_issue(queue, note=None):
+    lines = ([note, ""] if note else []) + ["Untick a box to **skip** that reel. Two reels post per day (8-10 am and 5-7 pm Chicago), top to bottom.",
              "Edit this issue from the GitHub app on your phone.", ""]
     for q in queue:
         if q["status"] == "queued":
@@ -96,8 +141,8 @@ def render_issue(queue):
     return "\n".join(lines)
 
 
-def sync_issue(queue, issue):
-    body = render_issue(queue)
+def sync_issue(queue, issue, note=None):
+    body = render_issue(queue, note)
     if issue:
         gh("PATCH", f"issues/{issue['number']}", {"body": body})
     else:
@@ -119,10 +164,14 @@ def main():
     last = max((datetime.fromisoformat(q["posted_at"]) for q in posted), default=None)
     nxt = next((q for q in queue if q["status"] == "queued"), None)
 
+    note = refresh_token() if SCHEDULED else None
     if nxt is None:
         print("queue empty, nothing to post")
+        note = note or "⚠️ **Queue is empty.** Approve next week's series so posting keeps going."
     elif last and datetime.now(timezone.utc) - last < MIN_GAP:
-        print(f"last post was {last}, under 20 h ago: waiting")
+        print(f"last post was {last}, under 5 h ago: this slot is already done")
+    elif SCHEDULED and not wait_for_slot():
+        pass
     else:
         caption = open(os.path.join(ROOT, "captions", f"{nxt['id']}.txt")).read().strip()
         check_caption(caption)
@@ -159,8 +208,8 @@ def main():
 
     json.dump(queue, open(QUEUE, "w"), indent=2, ensure_ascii=False)
     open(QUEUE, "a").write("\n")
-    if os.environ.get("GITHUB_TOKEN") and not DRY:
-        sync_issue(queue, issue)
+    if os.environ.get("GITHUB_TOKEN"):
+        sync_issue(queue, issue, note)
     if nxt and nxt["status"] == "failed":
         sys.exit(f"Instagram rejected {nxt['id']}: {nxt.get('error')}")
 
