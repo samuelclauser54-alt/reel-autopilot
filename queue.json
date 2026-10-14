@@ -3,13 +3,25 @@
     "id": "descent",
     "title": "How AI actually learns (gradient descent)",
     "video": "descent.mp4",
-    "status": "queued"
+    "status": "posted",
+    "posted_at": "2026-10-06T12:00:00+00:00",
+    "note": "posted manually"
   },
   {
     "id": "embed",
     "title": "How ChatGPT reads words (embeddings)",
     "video": "embed.mp4",
-    "status": "queued"
+    "status": "posted",
+    "posted_at": "2026-10-06T18:00:00+00:00",
+    "note": "posted manually"
+  },
+  {
+    "id": "eigen",
+    "title": "Eigenvectors and PageRank",
+    "video": "eigen.mp4",
+    "status": "posted",
+    "posted_at": "2026-10-07T18:00:00+00:00",
+    "note": "posted manually"
   },
   {
     "id": "bend",
@@ -51,12 +63,6 @@
     "id": "gps",
     "title": "Why GPS needs Einstein",
     "video": "gps.mp4",
-    "status": "queued"
-  },
-  {
-    "id": "eigen",
-    "title": "Eigenvectors and PageRank",
-    "video": "eigen.mp4",
     "status": "queued"
   }
 ]

@@ -44,6 +44,11 @@ def ig(method, path, **params):
     return http(method, f"{IG}/{path}", params)
 
 
+def fingerprint(text):
+    """first 40 letters/digits, lowercased: survives emoji and quote-mark edits"""
+    return re.sub(r"[^a-z0-9]", "", (text or "").lower())[:40]
+
+
 def check_caption(text):
     tags = re.findall(r"#\w+", text)
     if len(tags) > 5:
@@ -127,8 +132,8 @@ def main():
             print("DRY_RUN: would post now. Caption:\n" + caption)
         else:
             uid = os.environ["IG_USER_ID"]
-            recent = ig("GET", f"{uid}/media", fields="caption,timestamp", limit=25).get("data", [])
-            if any((m.get("caption") or "")[:80] == caption[:80] for m in recent):
+            recent = ig("GET", f"{uid}/media", fields="caption,timestamp", limit=50).get("data", [])
+            if any(fingerprint(m.get("caption")) == fingerprint(caption) for m in recent):
                 print("already on the account: marking posted, not re-posting")
                 nxt.update(status="posted", posted_at=datetime.now(timezone.utc).isoformat())
             else:
