@@ -1,0 +1,15 @@
+Every word ChatGPT writes = 175 billion copies of ONE tiny operation. 🤯
+
+The math inside AI, Part 1: the dot product.
+
+1️⃣ Multiply matching numbers, then add: (2,1)·(3,4) = 2×3 + 1×4 = 10
+2️⃣ Geometrically: a·b = |a| |b| cos θ. It measures how much two arrows point the same way
+3️⃣ Same direction → big. Perpendicular → 0. Opposite → negative
+4️⃣ A neuron is a dot product: inputs · weights
+5️⃣ Recommendation feeds do it too: your taste vector · each video's vector, highest score plays next
+
+The 175 billion is real: GPT-3 has 175B weights, and generating one word takes roughly one multiply-and-add per weight. The neuron and feed numbers are small examples, computed exactly.
+
+Part 2: matrix multiplication. Follow so you don't miss it, and save this for linear algebra class 📌
+
+#machinelearning #linearalgebra #ai #math #chatgpt

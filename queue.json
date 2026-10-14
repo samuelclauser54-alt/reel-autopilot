@@ -64,5 +64,11 @@
     "title": "Why GPS needs Einstein",
     "video": "gps.mp4",
     "status": "queued"
+  },
+  {
+    "id": "dot",
+    "title": "Math inside AI 1: the dot product",
+    "video": "dot.mp4",
+    "status": "queued"
   }
 ]
