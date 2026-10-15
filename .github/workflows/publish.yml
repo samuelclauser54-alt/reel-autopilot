@@ -2,11 +2,12 @@ name: post-reel
 
 on:
   schedule:
-    # Two slots a day. Each cron fires at the start of a window; publish.py sleeps
-    # to a random minute inside it. Two hours per slot so it works in both CDT
-    # and CST: the run that lands outside the window exits immediately.
-    - cron: "2 13,14 * * *"    # morning window, 8-10 am Chicago
-    - cron: "2 22,23 * * *"    # evening window, 5-7 pm Chicago
+    # Two slots a day (8-10 am and 5-7 pm Chicago). GitHub delays scheduled runs by
+    # hours or drops them, so fire many times per slot (odd minutes, less busy);
+    # publish.py posts once per slot and the extra runs exit in seconds. UTC hours
+    # cover both CDT and CST.
+    - cron: "7,37 13,14,22,23 * * *"
+    - cron: "7 15,16,17,0,1,2 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -14,7 +15,9 @@ on:
         type: boolean
         default: true
 
-concurrency: post-reel   # never two runs at once -> never a double post
+concurrency:   # never two runs at once -> never a double post
+  group: post-reel
+  cancel-in-progress: false
 
 permissions:
   contents: write

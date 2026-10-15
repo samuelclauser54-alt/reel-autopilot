@@ -1,12 +1,12 @@
-"""Post the next queued reel to Instagram. Runs once a day in GitHub Actions.
+"""Post the next queued reel to Instagram. Runs from GitHub Actions cron.
 
 Two slots a day, at a random minute inside each window (Chicago time):
-  morning 8:00-10:00, evening 5:00-7:00. Cron starts the job at the top of the
-  window (two crons per slot so daylight saving is covered); this script sleeps
-  to a random minute, then posts.
+  morning 8:00-10:00, evening 5:00-7:00. GitHub cron is unreliable (runs come
+  hours late or get dropped), so cron fires ~7 times per window and
+  wait_for_slot() makes sure exactly one of them posts, catching up if late.
 
 Safety rules (to look like a normal creator, never like a bot):
-  * at most ONE post per run, and never two within 5 hours
+  * at most ONE post per slot, and never two within 3 hours
   * never re-post something whose caption is already on the account
   * caption must have <= 5 hashtags and <= 2200 chars
   * reels unticked in the "Upcoming posts" issue are skipped
@@ -29,26 +29,35 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, "queue.json")
 IG = "https://graph.instagram.com/v25.0"
 DRY = os.environ.get("DRY_RUN", "") in ("1", "true")
-MIN_GAP = timedelta(hours=5)
+MIN_GAP = timedelta(hours=3)
 CHI = ZoneInfo("America/Chicago")
-WINDOWS = {"morning": (8, 10), "evening": (17, 19)}   # local hours [start, end)
+WINDOWS = {"morning": (8, 10, 13), "evening": (17, 19, 22)}   # local hours: start, aim-by, latest catch-up
 SCHEDULED = os.environ.get("GITHUB_EVENT_NAME") == "schedule"
 
 
-def wait_for_slot():
-    """Scheduled runs only: exit if we're outside a window (the other DST cron),
-    else sleep to a random minute before the window's last 15 minutes."""
+def wait_for_slot(last):
+    """Scheduled runs only. GitHub cron can fire hours late or not at all, so it
+    fires many times per window and this decides: post once per slot, at a random
+    minute between start and aim-by; a late run (cron delay) catches up right
+    away, up to the latest hour. Runs outside every slot just exit."""
     now = datetime.now(CHI)
-    for name, (a, b) in WINDOWS.items():
+    for name, (a, b, late) in WINDOWS.items():
         start = now.replace(hour=a, minute=0, second=0, microsecond=0)
+        if not start - timedelta(minutes=30) <= now < now.replace(hour=late, minute=0, second=0, microsecond=0):
+            continue
+        if last and last.astimezone(CHI) >= start - timedelta(minutes=30):
+            print(f"{name} slot already posted at {last.astimezone(CHI):%H:%M}: nothing to do")
+            return False
         end = now.replace(hour=b, minute=0, second=0, microsecond=0) - timedelta(minutes=15)
-        if start - timedelta(minutes=30) <= now < end:
+        if now < end:
             lo = max(now, start)
             at = lo + timedelta(seconds=random.uniform(0, (end - lo).total_seconds()))
             print(f"{name} slot: posting at {at:%H:%M} Chicago")
             time.sleep((at - now).total_seconds())
-            return True
-    print(f"{now:%H:%M} Chicago is outside the posting windows (DST twin cron): nothing to do")
+        else:
+            print(f"{name} slot: cron ran late ({now:%H:%M} Chicago), posting now")
+        return True
+    print(f"{now:%H:%M} Chicago is outside the posting windows: nothing to do")
     return False
 
 
@@ -163,48 +172,57 @@ def main():
     posted = [q for q in queue if q["status"] == "posted"]
     last = max((datetime.fromisoformat(q["posted_at"]) for q in posted), default=None)
     nxt = next((q for q in queue if q["status"] == "queued"), None)
+    tried = datetime.fromisoformat(nxt["tried_at"]) if nxt and nxt.get("tried_at") else None
 
+    err = None
     note = refresh_token() if SCHEDULED else None
     if nxt is None:
         print("queue empty, nothing to post")
         note = note or "⚠️ **Queue is empty.** Approve next week's series so posting keeps going."
     elif last and datetime.now(timezone.utc) - last < MIN_GAP:
-        print(f"last post was {last}, under 5 h ago: this slot is already done")
-    elif SCHEDULED and not wait_for_slot():
+        print(f"last post was {last}, under 3 h ago: this slot is already done")
+    elif SCHEDULED and not wait_for_slot(max(filter(None, [last, tried]), default=None)):
         pass
     else:
-        caption = open(os.path.join(ROOT, "captions", f"{nxt['id']}.txt")).read().strip()
-        check_caption(caption)
-        url = f"{os.environ['MEDIA_BASE_URL'].rstrip('/')}/{nxt['video']}"
-        print(f"posting {nxt['id']}  ({url})")
-        if DRY:
-            print("DRY_RUN: would post now. Caption:\n" + caption)
-        else:
-            uid = os.environ["IG_USER_ID"]
-            recent = ig("GET", f"{uid}/media", fields="caption,timestamp", limit=50).get("data", [])
-            if any(fingerprint(m.get("caption")) == fingerprint(caption) for m in recent):
-                print("already on the account: marking posted, not re-posting")
-                nxt.update(status="posted", posted_at=datetime.now(timezone.utc).isoformat())
+        try:
+            caption = open(os.path.join(ROOT, "captions", f"{nxt['id']}.txt")).read().strip()
+            check_caption(caption)
+            url = f"{os.environ['MEDIA_BASE_URL'].rstrip('/')}/{nxt['video']}"
+            print(f"posting {nxt['id']}  ({url})")
+            if DRY:
+                print("DRY_RUN: would post now. Caption:\n" + caption)
             else:
-                c = ig("POST", f"{uid}/media", media_type="REELS", video_url=url,
-                       caption=caption, share_to_feed="true")["id"]
-                for _ in range(30):   # Instagram downloads + transcodes the video
-                    time.sleep(20)
-                    st = ig("GET", c, fields="status_code,status")
-                    print("  container:", st.get("status_code"))
-                    if st.get("status_code") == "FINISHED":
-                        break
-                    if st.get("status_code") in ("ERROR", "EXPIRED"):
-                        nxt["status"] = "failed"
-                        nxt["error"] = st.get("status", "")
-                        break
+                uid = os.environ["IG_USER_ID"]
+                recent = ig("GET", f"{uid}/media", fields="caption,timestamp", limit=50).get("data", [])
+                if any(fingerprint(m.get("caption")) == fingerprint(caption) for m in recent):
+                    print("already on the account: marking posted, not re-posting")
+                    nxt.update(status="posted", posted_at=datetime.now(timezone.utc).isoformat())
                 else:
-                    raise SystemExit("container never finished")
-                if nxt["status"] != "failed":
-                    mid = ig("POST", f"{uid}/media_publish", creation_id=c)["id"]
-                    nxt.update(status="posted", media_id=mid,
-                               posted_at=datetime.now(timezone.utc).isoformat())
-                    print("  published media", mid)
+                    c = ig("POST", f"{uid}/media", media_type="REELS", video_url=url,
+                           caption=caption, share_to_feed="true")["id"]
+                    for _ in range(30):   # Instagram downloads + transcodes the video
+                        time.sleep(20)
+                        st = ig("GET", c, fields="status_code,status")
+                        print("  container:", st.get("status_code"))
+                        if st.get("status_code") == "FINISHED":
+                            break
+                        if st.get("status_code") in ("ERROR", "EXPIRED"):
+                            nxt["status"] = "failed"
+                            nxt["error"] = st.get("status", "")
+                            break
+                    else:
+                        raise SystemExit("container never finished")
+                    if nxt["status"] != "failed":
+                        mid = ig("POST", f"{uid}/media_publish", creation_id=c)["id"]
+                        nxt.update(status="posted", media_id=mid,
+                                   posted_at=datetime.now(timezone.utc).isoformat())
+                        print("  published media", mid)
+        except SystemExit as e:   # API error: keep it queued (retried next slot), tell the user
+            err = str(e)[:300]
+            nxt["tried_at"] = datetime.now(timezone.utc).isoformat()   # one try per slot
+            note = (f"⚠️ **Posting failed:** `{err}`\n\nIf it says *API access blocked* or mentions the token: "
+                    "open developers.facebook.com → your app, fix any alert, generate a new token, then run "
+                    "`~/reel-autopilot/scripts/token.sh save` in Terminal. The reel is retried next slot.")
 
     json.dump(queue, open(QUEUE, "w"), indent=2, ensure_ascii=False)
     open(QUEUE, "a").write("\n")
@@ -212,6 +230,8 @@ def main():
         sync_issue(queue, issue, note)
     if nxt and nxt["status"] == "failed":
         sys.exit(f"Instagram rejected {nxt['id']}: {nxt.get('error')}")
+    if err:
+        sys.exit(err)
 
 
 if __name__ == "__main__":
