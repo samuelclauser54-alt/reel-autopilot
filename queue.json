@@ -43,7 +43,9 @@
     "id": "diffusion",
     "title": "How AI makes images from static",
     "video": "diffusion.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18636174691062408",
+    "posted_at": "2026-10-16T17:22:46.029323+00:00"
   },
   {
     "id": "attention",
