@@ -59,7 +59,9 @@
     "id": "overfit",
     "title": "Overfitting: the perfect-score AI",
     "video": "overfit.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18129455983744419",
+    "posted_at": "2026-10-17T16:21:15.802887+00:00"
   },
   {
     "id": "spam",
