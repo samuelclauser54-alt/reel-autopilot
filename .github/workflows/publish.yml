@@ -2,12 +2,15 @@ name: post-reel
 
 on:
   schedule:
-    # Two slots a day (8-10 am and 5-7 pm Chicago). GitHub delays scheduled runs by
+    # Two slots a day (three on 3-a-day dates, see publish.py) (8-10 am and 5-7 pm Chicago). GitHub delays scheduled runs by
     # hours or drops them, so fire many times per slot (odd minutes, less busy);
     # publish.py posts once per slot and the extra runs exit in seconds. UTC hours
     # cover both CDT and CST.
     - cron: "7,37 13,14,22,23 * * *"
     - cron: "7 15,16,17,0,1,2 * * *"
+    # midday slot (12:30-2 pm Chicago) on 3-a-day dates
+    - cron: "37 17,18,19 * * *"
+    - cron: "7 18,19,20,21 * * *"
   workflow_dispatch:
     inputs:
       dry_run:

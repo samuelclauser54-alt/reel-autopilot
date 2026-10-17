@@ -1,12 +1,12 @@
 """Post the next queued reel to Instagram. Runs from GitHub Actions cron.
 
 Two slots a day, at a random minute inside each window (Chicago time):
-  morning 8:00-10:00, evening 5:00-7:00. GitHub cron is unreliable (runs come
+  morning 8:00-10:00, evening 5:00-7:00 (plus midday 12:30-2:00 on 3-a-day dates). GitHub cron is unreliable (runs come
   hours late or get dropped), so cron fires ~7 times per window and
   wait_for_slot() makes sure exactly one of them posts, catching up if late.
 
 Safety rules (to look like a normal creator, never like a bot):
-  * at most ONE post per slot, and never two within 3 hours
+  * at most ONE post per slot, and never two within 90 minutes
   * never re-post something whose caption is already on the account
   * caption must have <= 5 hashtags and <= 2200 chars
   * reels unticked in the "Upcoming posts" issue are skipped
@@ -29,9 +29,20 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, "queue.json")
 IG = "https://graph.instagram.com/v25.0"
 DRY = os.environ.get("DRY_RUN", "") in ("1", "true")
-MIN_GAP = timedelta(hours=3)
+MIN_GAP = timedelta(minutes=90)
 CHI = ZoneInfo("America/Chicago")
-WINDOWS = {"morning": (8, 10, 13), "evening": (17, 19, 22)}   # local hours: start, aim-by, latest catch-up
+# local hours: start, aim-by, latest catch-up
+WINDOWS = {"morning": (8, 10, 13), "evening": (17, 19, 22)}
+WINDOWS3 = {"morning": (8, 10, 11), "midday": (12.5, 14, 15.5), "evening": (17, 19, 22)}
+THREE_A_DAY = ("2026-10-18", "2026-10-24")   # inclusive Chicago dates that get a midday post too
+
+
+def windows(now):
+    return WINDOWS3 if THREE_A_DAY[0] <= f"{now:%Y-%m-%d}" <= THREE_A_DAY[1] else WINDOWS
+
+
+def at_hour(now, h):
+    return now.replace(hour=int(h), minute=int(round(h % 1 * 60)), second=0, microsecond=0)
 SCHEDULED = os.environ.get("GITHUB_EVENT_NAME") == "schedule"
 
 
@@ -41,14 +52,14 @@ def wait_for_slot(last):
     minute between start and aim-by; a late run (cron delay) catches up right
     away, up to the latest hour. Runs outside every slot just exit."""
     now = datetime.now(CHI)
-    for name, (a, b, late) in WINDOWS.items():
-        start = now.replace(hour=a, minute=0, second=0, microsecond=0)
-        if not start - timedelta(minutes=30) <= now < now.replace(hour=late, minute=0, second=0, microsecond=0):
+    for name, (a, b, late) in windows(now).items():
+        start = at_hour(now, a)
+        if not start - timedelta(minutes=30) <= now < at_hour(now, late):
             continue
         if last and last.astimezone(CHI) >= start - timedelta(minutes=30):
             print(f"{name} slot already posted at {last.astimezone(CHI):%H:%M}: nothing to do")
             return False
-        end = now.replace(hour=b, minute=0, second=0, microsecond=0) - timedelta(minutes=15)
+        end = at_hour(now, b) - timedelta(minutes=15)
         if now < end:
             lo = max(now, start)
             at = lo + timedelta(seconds=random.uniform(0, (end - lo).total_seconds()))
@@ -137,7 +148,7 @@ def unticked(issue):
 
 
 def render_issue(queue, note=None):
-    lines = ([note, ""] if note else []) + ["Untick a box to **skip** that reel. Two reels post per day (8-10 am and 5-7 pm Chicago), top to bottom.",
+    lines = ([note, ""] if note else []) + ["Untick a box to **skip** that reel. Reels post top to bottom: 8-10 am and 5-7 pm Chicago (plus 12:30-2 pm on 3-a-day dates).",
              "Edit this issue from the GitHub app on your phone.", ""]
     for q in queue:
         if q["status"] == "queued":
@@ -180,7 +191,7 @@ def main():
         print("queue empty, nothing to post")
         note = note or "⚠️ **Queue is empty.** Approve next week's series so posting keeps going."
     elif last and datetime.now(timezone.utc) - last < MIN_GAP:
-        print(f"last post was {last}, under 3 h ago: this slot is already done")
+        print(f"last post was {last}, under 90 min ago: this slot is already done")
     elif SCHEDULED and not wait_for_slot(max(filter(None, [last, tried]), default=None)):
         pass
     else:
