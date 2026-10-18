@@ -1,0 +1,15 @@
+The flying Roadster can leave the ground. But for how long? The physics says about 7 seconds. ⏱️
+
+The physics of the flying Roadster, Part 3: how long can it fly?
+
+1️⃣ To hover, thrust must equal weight: T = mg ≈ 2000 kg × 9.8 m/s² ≈ 20 kN
+2️⃣ At ~700 m/s exhaust, that burns ṁ = T / vₑ ≈ 28 kg of air every second
+3️⃣ A ~600 L tank at ~300 atm holds roughly 200 kg of air → 200 ÷ 28 ≈ 7 s
+4️⃣ The car gets lighter as air leaves, so use the rocket equation: Δv = vₑ ln(m₀/m₁) = 700 ln(2000/1800) ≈ 74 m/s → Δv/g ≈ 7.5 s
+5️⃣ One minute of hovering would need ~2,400 kg of air, more than the whole car weighs
+
+The ~600 L tank was reported at the unveiling. The 2-tonne mass, 300 atm and 700 m/s (an ideal best case) are my estimates, so real hover time is likely even shorter.
+
+Part 4: how it drives upside down, even when parked. Follow so you don't miss it, and save this for physics class 📌
+
+#physics #tesla #spacex #roadster #engineering
