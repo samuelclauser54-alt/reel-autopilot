@@ -1,0 +1,15 @@
+The Roadster rolled 180° in midair and landed on its wheels. Here's the physics of that flip. 🔄
+
+The physics of the flying Roadster, Part 5: the midair flip.
+
+1️⃣ One thruster pushes up on one side, one pushes down on the other: the forces cancel (ΣF = 0) but the torque doesn't, so the car just spins
+2️⃣ Treat it as a 2,000 kg box, 1.9 m wide and 1.2 m tall: I = m(w² + h²)/12 ≈ 840 kg·m²
+3️⃣ 180° in 1 s: spin up for 0.5 s, brake for 0.5 s → α = 4π rad/s²
+4️⃣ τ = Iα ≈ 840 × 4π ≈ 10,600 N·m. With thrusters ~0.95 m from center: F = τ/2r ≈ 5.6 kN each
+5️⃣ Angular momentum L = Iω is conserved, so once it spins it keeps spinning. It has to fire the opposite pair to stop. Falcon 9 boosters flip after separation the same way
+
+The 180° roll using compressed-air bursts comes from Tesla's unveiling. The box model, the 1 s flip time and the thruster spacing are my estimates, used to show the physics.
+
+Part 6 (finale): the math of jumping over a Tesla Semi. Follow so you don't miss it, and save this for physics class 📌
+
+#physics #tesla #spacex #roadster #engineering
