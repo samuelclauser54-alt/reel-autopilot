@@ -1,0 +1,15 @@
+The Roadster jumped clean over a Tesla Semi. Every one of those jumps is a tiny rocket landing. 🚀
+
+The physics of the flying Roadster, Part 6 (finale): the jump and the hoverslam.
+
+1️⃣ A Semi is ~4 m tall. To clear it with room to spare, aim for ~5.5 m: v₀ = √(2gh) ≈ 10.4 m/s straight up
+2️⃣ Up and back down: t = 2v₀/g ≈ 2.1 s
+3️⃣ Falling 5.5 m unbraked, you hit the ground at ~23 mph
+4️⃣ Hoverslam: thrusters fire down at the last moment. Braking height h = v²/2(a−g). With 3g of thrust, braking starts at h = H/3 ≈ 1.8 m
+5️⃣ ~0.43 s of braking, about 84 kg/s × 0.43 s ≈ 36 kg of air. Falcon 9 lands the same way: brake at the last possible moment
+
+The Semi and Cybertruck jumps come from Tesla's unveiling. The 5.5 m apex, 3g braking and air use are my physics model, not Tesla figures.
+
+That's the series! Which part was your favorite? Follow for more physics of real tech, and save this for physics class 📌
+
+#physics #tesla #spacex #roadster #engineering
