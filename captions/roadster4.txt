@@ -1,0 +1,15 @@
+The new Roadster drove upside down, and stayed stuck to the ceiling even when it stopped. The secret is the sky. 🌍
+
+The physics of the flying Roadster, Part 4: how it drives upside down.
+
+1️⃣ Race-car wings make downforce ∝ v², so at 0 mph they make nothing
+2️⃣ The Roadster uses fans to suck air out from under the car, so it works even parked
+3️⃣ Outside air now pushes harder than the thin air left in the gap: F = ΔP · A
+4️⃣ Holding ~20,000 N over ~7 m² of floor needs ΔP = F/A ≈ 2,800 Pa, under 3% of normal air pressure
+5️⃣ The atmosphere already presses on the car with ~709,000 N (≈72 tonnes of force). The fans just remove a sliver of it from one side
+
+The fan-suction system and holding upside down while stationary come from Tesla's unveiling. The 2-tonne mass and 7 m² floor are my estimates, used to show the physics.
+
+Part 5: how it flips 180° in midair and lands on its wheels. Follow so you don't miss it, and save this for physics class 📌
+
+#physics #tesla #spacex #roadster #engineering
