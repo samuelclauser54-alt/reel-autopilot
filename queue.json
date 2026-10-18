@@ -67,7 +67,9 @@
     "id": "spam",
     "title": "Spam filters (logistic regression)",
     "video": "spam.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18345498625280070",
+    "posted_at": "2026-10-18T00:00:09.873445+00:00"
   },
   {
     "id": "gps",
