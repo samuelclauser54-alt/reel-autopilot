@@ -78,6 +78,12 @@
     "status": "queued"
   },
   {
+    "id": "roadster1",
+    "title": "Roadster physics 1: why tires can't do 0-60 in 1 s",
+    "video": "roadster1.mp4",
+    "status": "queued"
+  },
+  {
     "id": "dot",
     "title": "Math inside AI 1: the dot product",
     "video": "dot.mp4",

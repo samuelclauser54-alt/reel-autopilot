@@ -1,0 +1,15 @@
+Tesla says the new Roadster does 0–60 in under 1 second. Tires physically can't do that. 🚀
+
+The physics of the flying Roadster, Part 1: why it needs thrusters.
+
+1️⃣ Tires push the car forward with friction, and friction maxes out at F = μmg
+2️⃣ Sticky racing tires: μ ≈ 1.2, so the best acceleration is 1.2g ≈ 11.8 m/s²
+3️⃣ 60 mph = 26.8 m/s → best case 26.8 ÷ 11.8 ≈ 2.3 s
+4️⃣ Under 1 s needs 26.8 m/s² ≈ 2.7g, double what rubber can grip. Push harder and the tires just spin
+5️⃣ So it pushes on air: compressed-air thrusters add the missing force, roughly 30 kN for a ~2-tonne car
+
+The 0–60 claim and the air thrusters come from Tesla's unveiling. μ, the car's mass and the 30 kN are my estimates, used to show the physics.
+
+Part 2: how air alone can shove a 2-tonne car. Follow so you don't miss it, and save this for physics class 📌
+
+#physics #tesla #spacex #roadster #engineering
