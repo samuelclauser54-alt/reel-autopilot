@@ -83,7 +83,9 @@
     "id": "roadster1",
     "title": "Roadster physics 1: why tires can't do 0-60 in 1 s",
     "video": "roadster1.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18114101768165305",
+    "posted_at": "2026-10-18T23:17:25.546389+00:00"
   },
   {
     "id": "roadster2",
