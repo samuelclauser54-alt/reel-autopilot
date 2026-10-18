@@ -1,0 +1,15 @@
+The flying Roadster doesn't burn anything. It just throws air, really fast. 💨
+
+The physics of the flying Roadster, Part 2: how air can shove a 2-tonne car.
+
+1️⃣ Newton's 3rd law: push air backward, the air pushes the car forward
+2️⃣ Thrust = (kg thrown per second) × (how fast it leaves): F = ṁ·vₑ
+3️⃣ Air squeezed to ~300 atmospheres (scuba-tank pressure) can leave at up to ~700 m/s, about twice the speed of sound
+4️⃣ 30,000 N ÷ 700 m/s ≈ 43 kg of air per second, a small bedroom's worth (≈36 m³) every second
+5️⃣ SpaceX already does this: Falcon 9 boosters steer with cold-gas (nitrogen) thrusters
+
+Tesla showed compressed-air thrusters at the unveiling. The 300 atm, 700 m/s (an ideal best case) and 30 kN are my estimates, used to show the physics.
+
+Part 3: so how long can it actually fly? Follow so you don't miss it, and save this for physics class 📌
+
+#physics #tesla #spacex #roadster #engineering

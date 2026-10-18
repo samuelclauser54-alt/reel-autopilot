@@ -86,6 +86,12 @@
     "status": "queued"
   },
   {
+    "id": "roadster2",
+    "title": "Roadster physics 2: how air pushes a car",
+    "video": "roadster2.mp4",
+    "status": "queued"
+  },
+  {
     "id": "dot",
     "title": "Math inside AI 1: the dot product",
     "video": "dot.mp4",
