@@ -17,6 +17,10 @@ on:
         description: "Dry run (don't actually post)"
         type: boolean
         default: true
+      slot_check:
+        description: "Only post if a slot is due (used by the Mac backup trigger)"
+        type: boolean
+        default: false
 
 concurrency:   # never two runs at once -> never a double post
   group: post-reel
@@ -42,6 +46,7 @@ jobs:
           MEDIA_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run }}
+          SLOT_CHECK: ${{ inputs.slot_check }}
         run: python scripts/publish.py
       - name: Save queue state
         if: always()

@@ -32,8 +32,9 @@ DRY = os.environ.get("DRY_RUN", "") in ("1", "true")
 MIN_GAP = timedelta(minutes=90)
 CHI = ZoneInfo("America/Chicago")
 # local hours: start, aim-by, latest catch-up
-WINDOWS = {"morning": (8, 10, 13), "evening": (17, 19, 22)}
-WINDOWS3 = {"morning": (8, 10, 11), "midday": (12.5, 14, 15.5), "evening": (17, 19, 22)}
+# windows run back to back so a late cron run (GitHub often drops most of them) still catches the slot
+WINDOWS = {"morning": (8, 10, 16.5), "evening": (17, 19, 23.5)}
+WINDOWS3 = {"morning": (8, 10, 12.5), "midday": (12.5, 14, 16.5), "evening": (17, 19, 23.5)}
 THREE_A_DAY = ("2026-10-18", "2026-10-24")   # inclusive Chicago dates that get a midday post too
 
 
@@ -43,7 +44,8 @@ def windows(now):
 
 def at_hour(now, h):
     return now.replace(hour=int(h), minute=int(round(h % 1 * 60)), second=0, microsecond=0)
-SCHEDULED = os.environ.get("GITHUB_EVENT_NAME") == "schedule"
+# cron runs, and the Mac's backup trigger (workflow_dispatch with slot_check), obey the slot rules
+SCHEDULED = os.environ.get("GITHUB_EVENT_NAME") == "schedule" or os.environ.get("SLOT_CHECK") == "true"
 
 
 def wait_for_slot(last):
