@@ -1,12 +1,13 @@
 """Post the next queued reel to Instagram. Runs from GitHub Actions cron.
 
-Two slots a day, at a random minute inside each window (Chicago time):
-  morning 8:00-10:00, evening 5:00-7:00 (plus midday 12:30-2:00 on 3-a-day dates). GitHub cron is unreliable (runs come
+One slot a day, at a random minute 10:30-1:00 Chicago time (the account's
+  breakouts all went out late morning / midday). GitHub cron is unreliable (runs come
   hours late or get dropped), so cron fires ~7 times per window and
   wait_for_slot() makes sure exactly one of them posts, catching up if late.
 
 Safety rules (to look like a normal creator, never like a bot):
-  * at most ONE post per slot, and never two within 90 minutes
+  * at most ONE post per day, and never two within 20 hours (3/day in Oct 2026
+    got two reels throttled to ~150 views)
   * never re-post something whose caption is already on the account
   * caption must have <= 5 hashtags and <= 2200 chars
   * reels unticked in the "Upcoming posts" issue are skipped
@@ -29,17 +30,15 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, "queue.json")
 IG = "https://graph.instagram.com/v25.0"
 DRY = os.environ.get("DRY_RUN", "") in ("1", "true")
-MIN_GAP = timedelta(minutes=90)
+MIN_GAP = timedelta(hours=20)
 CHI = ZoneInfo("America/Chicago")
 # local hours: start, aim-by, latest catch-up
 # windows run back to back so a late cron run (GitHub often drops most of them) still catches the slot
-WINDOWS = {"morning": (8, 10, 16.5), "evening": (17, 19, 23.5)}
-WINDOWS3 = {"morning": (8, 10, 12.5), "midday": (12.5, 14, 16.5), "evening": (17, 19, 23.5)}
-THREE_A_DAY = ("2026-10-18", "2026-10-24")   # inclusive Chicago dates that get a midday post too
+WINDOWS = {"daily": (10.5, 13, 22)}
 
 
 def windows(now):
-    return WINDOWS3 if THREE_A_DAY[0] <= f"{now:%Y-%m-%d}" <= THREE_A_DAY[1] else WINDOWS
+    return WINDOWS
 
 
 def at_hour(now, h):
@@ -193,7 +192,7 @@ def main():
         print("queue empty, nothing to post")
         note = note or "⚠️ **Queue is empty.** Approve next week's series so posting keeps going."
     elif last and datetime.now(timezone.utc) - last < MIN_GAP:
-        print(f"last post was {last}, under 90 min ago: this slot is already done")
+        print(f"last post was {last}, under 20 h ago: waiting for tomorrow")
     elif SCHEDULED and not wait_for_slot(max(filter(None, [last, tried]), default=None)):
         pass
     else:
