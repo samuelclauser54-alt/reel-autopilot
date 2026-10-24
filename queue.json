@@ -134,5 +134,11 @@
     "status": "posted",
     "media_id": "18117402164084482",
     "posted_at": "2026-10-20T23:20:57.981740+00:00"
+  },
+  {
+    "id": "a01-vectors",
+    "title": "Inside the Machine 0.1: vectors and norms",
+    "video": "a01-vectors.mp4",
+    "status": "queued"
   }
 ]

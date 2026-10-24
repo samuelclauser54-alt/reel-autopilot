@@ -1,0 +1,18 @@
+Lesson 0.1 of Inside the Machine, a course that takes you from zero to reading real AI research papers, one reel at a time.
+
+Today: vectors and norms, the object every AI model is built from.
+
+What you'll learn:
+→ A vector is a list of numbers and also an arrow: (3, 4) means 3 right, 4 up
+→ Adding vectors = adding matching entries: (3, 4) + (1, −2) = (4, 2), tip to tail
+→ Multiplying by a number scales every entry; a negative flips the direction
+→ The norm (length): ‖x‖ = √(x₁² + x₂² + … + xₙ²), so ‖(3, 4)‖ = 5 and ‖(1, 2, 2)‖ = 3
+→ Dividing by the norm gives a unit vector: same direction, length 1
+
+Real example: the word "king" in the GloVe model is a list of 50 real numbers with norm 5.37. AI compares words by direction (length-1 vectors), and weight decay adds λ‖w‖² to the loss to keep weights small.
+
+Check yourself: what's the length of (2, 3, 6)? Comment your answer. It's revealed in Lesson 0.2 👇
+
+Save this to follow the series in order.
+
+#machinelearning #linearalgebra #artificialintelligence #learnai #mathematics
