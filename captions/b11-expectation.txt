@@ -1,0 +1,19 @@
+Lesson 1.1 of The Math of Money: from coin flips to stochastic calculus and Black–Scholes, one reel at a time.
+
+Today: random variables and expected value, the idea behind every price on Wall Street.
+
+The math, step by step:
+• A random variable X is a number decided by chance (like a die roll)
+• Expected value = a weighted average: E[X] = Σ x · P(X = x)
+• Fair die: (1 + 2 + 3 + 4 + 5 + 6) / 6 = 3.5, the balance point of the distribution
+• It's the long-run average: 10,000 simulated rolls settle on 3.5
+• A bet that wins $10 with p = 0.3 and loses $5 with p = 0.7 has E = 3 − 3.5 = −$0.50, and 10,000 simulated bets agree
+• Linearity: E[X + Y] = E[X] + E[Y], even when X and Y are dependent, so two dice average 7
+
+Where it's used: a casino's edge (one number on American roulette: E = −2/38 ≈ −5.3¢ per $1) and option pricing (price = discounted expected payoff), which we'll derive later in the series.
+
+Check yourself: a game pays your die roll squared, in dollars. What's the expected payout? Answer in Lesson 1.2 👇
+
+Save this to follow the series in order.
+
+#quantfinance #probability #mathematics #trading #statistics
