@@ -155,7 +155,9 @@
     "id": "p01-action",
     "title": "Physics 1: least action (big picture)",
     "video": "p01-action.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18133079488665940",
+    "posted_at": "2026-10-27T01:27:06.359719+00:00"
   },
   {
     "id": "l01-digits",
