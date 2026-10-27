@@ -204,5 +204,23 @@
     "title": "Physics 3: the brachistochrone",
     "video": "p03-brach.mp4",
     "status": "queued"
+  },
+  {
+    "id": "s02-walk",
+    "title": "Stochastic calculus 2: random walks and sqrt(t)",
+    "video": "s02-walk.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "c02-float",
+    "title": "Code 2: 0.1 + 0.2 and bfloat16",
+    "video": "c02-float.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "l03-matrix",
+    "title": "Linear algebra for ML 3: a matrix warps space",
+    "video": "l03-matrix.mp4",
+    "status": "queued"
   }
 ]

@@ -1,0 +1,17 @@
+Four numbers just warped this entire grid. Every layer of a neural network does exactly this to its input.
+
+Two ways to read A·v (A = [[2, 1], [−1, 1]], v = (1, 2)):
+• Rows: each row dots with v → (2,1)·(1,2) = 4 and (−1,1)·(1,2) = 1
+• Columns: 1 × (2, −1) + 2 × (1, 1) = (4, 1). Same answer
+
+So the columns are where (1,0) and (0,1) land, and the whole grid follows: lines stay straight, parallel and evenly spaced.
+
+Rotate 90°? Ask where the arrows go: (1,0) → (0,1) and (0,1) → (−1,0). Those are the columns: [[0, −1], [1, 0]].
+
+A matrix can rotate, stretch and shear your data, but it can never bend it. That's why neural nets need nonlinearities.
+
+Determinant = area scale factor = ad − bc. Here 2·1 − 1·(−1) = 3, so every square becomes 3× bigger.
+
+Linear algebra for ML, part 3. Next: why stacking matrices gets you nothing.
+
+#linearalgebra #machinelearning #matrix #deeplearning #math

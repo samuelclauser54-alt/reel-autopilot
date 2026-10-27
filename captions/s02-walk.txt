@@ -1,0 +1,15 @@
+Flip a coin 100 times and step left or right each time. You typically end up about 10 steps from the start: not 50, but 10. That square root runs all of finance.
+
+From a real simulation of 1,000 walkers:
+• after 100 steps: typical (RMS) distance 9.9
+• after 400 steps: 20.1. Four times the steps → twice the spread
+
+Why √n: each step squared is exactly 1, so each step adds 1 to the variance. When you square the total, the cross terms XᵢXⱼ cancel on average (two different steps agree as often as they disagree). So E[Sₙ²] = n and the spread is √n.
+
+Shrink the steps to ±1/√n while taking n per unit time, and the variance at time t stays exactly t. In the limit that's Brownian motion.
+
+Real-world: a stock that moves 1% a day typically moves 1% × √252 ≈ 16% a year (252 trading days).
+
+Stochastic calculus, part 2. Next: why Brownian paths break ordinary calculus.
+
+#stochasticcalculus #randomwalk #probability #quantfinance #math
