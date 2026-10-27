@@ -1,0 +1,18 @@
+Three beads race to the same finish: a straight ramp, a circular arc, and a cycloid. The straight ramp is the shortest path, and it loses.
+
+Real frictionless times (finish 3 m across, 1.2 m down, g = 9.8):
+• straight ramp: 1.33 s
+• circular arc: 1.04 s
+• cycloid: 1.00 s
+
+Why: speed comes from falling (v = √(2gy)), so dropping early buys speed for the rest of the trip, but dropping too far makes the path long. Slice the fall into thin layers and the bead "refracts" like light in each one: sin θ / v = constant. The curve that satisfies that everywhere is the cycloid, the path of a point on a rolling wheel.
+
+Plot twist: here the fastest path dips to 1.35 m, BELOW the finish line, then climbs back up, and still wins.
+
+Bonus (tautochrone): beads released from anywhere on a cycloid reach the bottom at the same instant (0.82 s here).
+
+Johann Bernoulli posed this in 1696, and Newton reportedly solved it overnight. It was the birth of the calculus of variations.
+
+Physics · Least action, part 3 of 8. Next: the Euler–Lagrange equation.
+
+#physics #calculus #brachistochrone #cycloid #mathematics

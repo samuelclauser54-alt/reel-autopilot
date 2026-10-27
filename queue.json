@@ -198,5 +198,11 @@
     "title": "Derivations 2: the Gaussian integral is sqrt(pi)",
     "video": "d02-gauss.mp4",
     "status": "queued"
+  },
+  {
+    "id": "p03-brach",
+    "title": "Physics 3: the brachistochrone",
+    "video": "p03-brach.mp4",
+    "status": "queued"
   }
 ]
