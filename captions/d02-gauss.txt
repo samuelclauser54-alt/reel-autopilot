@@ -1,0 +1,15 @@
+e^(−x²) has no antiderivative you can write down, but the area under it is exactly √π. Here's the classic trick (Gauss and Poisson's polar method).
+
+1. Call the area I = ∫ e^(−x²) dx
+2. Square it: I² = ∫ e^(−x²) dx · ∫ e^(−y²) dy = ∬ e^(−(x² + y²)) dx dy, the volume under a 3D "mountain"
+3. x² + y² = r², so the mountain is perfectly round → slice it into thin rings
+4. Ring at radius r: length 2πr, thickness dr, height e^(−r²)
+5. That extra r is the trick: d/dr e^(−r²) = −2r e^(−r²)
+6. Volume = π ∫₀^∞ 2r e^(−r²) dr = π[−e^(−r²)]₀^∞ = π
+7. I² = π → I = √π ≈ 1.7725
+
+That's why the normal distribution has 1/√(2π) in front: it makes the total probability exactly 1.
+
+Derivations, part 2. Next: the volume of a ball in any number of dimensions.
+
+#calculus #multivariablecalculus #gaussianintegral #math #statistics

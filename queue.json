@@ -192,5 +192,11 @@
     "title": "Linear algebra for ML 2: why the dot product measures a match",
     "video": "l02-dot.mp4",
     "status": "queued"
+  },
+  {
+    "id": "d02-gauss",
+    "title": "Derivations 2: the Gaussian integral is sqrt(pi)",
+    "video": "d02-gauss.mp4",
+    "status": "queued"
   }
 ]
