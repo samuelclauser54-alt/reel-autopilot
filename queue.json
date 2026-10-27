@@ -186,5 +186,11 @@
     "title": "Code 1: why NumPy is 127x faster than a loop",
     "video": "c01-numpy.mp4",
     "status": "queued"
+  },
+  {
+    "id": "l02-dot",
+    "title": "Linear algebra for ML 2: why the dot product measures a match",
+    "video": "l02-dot.mp4",
+    "status": "queued"
   }
 ]

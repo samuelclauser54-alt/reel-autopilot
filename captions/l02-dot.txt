@@ -1,0 +1,17 @@
+Why does "multiply matching numbers and add them up" measure how well two things match? This is the dot product, the operation inside every neural network.
+
+The picture:
+1. A 3×3 template: blue weights (+1) want ink, red weights (−1) don't
+2. Multiply each pixel by its weight: ink on blue → positive, ink on red → negative, no ink → 0
+3. Add up: vertical bar = 1.5, the same bar sideways = −0.5
+4. Twice as dark → exactly double (3.0). The dot product cares about strength, not just shape
+
+The geometry: a·b = |a||b| cos θ. Same direction → big and positive, 90° → 0, opposite → negative.
+
+The 2-line proof: |a − b|² = |a|² + |b|² − 2a·b (algebra) and also = |a|² + |b|² − 2|a||b|cos θ (law of cosines). Everything else cancels.
+
+Divide by both lengths and you get cosine similarity, which embedding search uses to decide that two sentences mean the same thing.
+
+Linear algebra for ML, part 2. Next: ten templates at once = a matrix.
+
+#linearalgebra #machinelearning #dotproduct #math #ai
