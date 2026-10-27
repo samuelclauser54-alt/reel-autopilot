@@ -174,5 +174,17 @@
     "title": "Derivations 1: sphere volume, Archimedes' way",
     "video": "d01-sphere.mp4",
     "status": "queued"
+  },
+  {
+    "id": "p02-snell",
+    "title": "Physics 2: Fermat's principle -> Snell's law",
+    "video": "p02-snell.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "c01-numpy",
+    "title": "Code 1: why NumPy is 127x faster than a loop",
+    "video": "c01-numpy.mp4",
+    "status": "queued"
   }
 ]

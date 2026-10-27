@@ -1,0 +1,15 @@
+Same math, same data, same answer: a Python loop takes 295 ms and NumPy takes 2.3 ms. I measured it on my laptop: 127× faster.
+
+Why:
+1. A Python list holds pointers, not numbers. Each one points to a separate float object (8-byte pointer + 24-byte object = 32 bytes per number)
+2. Every loop step follows 2 pointers, checks types, multiplies, and allocates a new object for the result. 10 million times.
+3. A NumPy array is one solid block of raw 8-byte floats
+4. np.dot hands the whole block to compiled code that streams through memory and multiplies several numbers per CPU instruction
+
+That's why ML code is written with no loops over data (vectorized). USAAIO even asks for gradients with no loops: grad = X.T @ (X @ w − y) / n.
+
+Bonus: the two answers differ in the last 4 digits. Next code video: why 0.1 + 0.2 ≠ 0.3.
+
+Benchmark: dot product of two 10,000,000-element arrays, best of 5, Python 3.12, NumPy 2.5.
+
+#python #numpy #coding #programming #machinelearning

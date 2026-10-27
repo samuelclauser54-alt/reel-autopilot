@@ -1,0 +1,14 @@
+Light bends in water because it takes the fastest route, not because something pushes it. That's Fermat's principle.
+
+The derivation:
+• Light is 25% slower in water (refractive index 1.33)
+• Travel time T(x) = √(a² + x²)/v₁ + √(b² + (d − x)²)/v₂ for crossing point x
+• Fastest crossing: dT/dx = 0
+• Each term is (horizontal distance / hypotenuse) / speed = sin θ / v
+• So sin θ₁ / v₁ = sin θ₂ / v₂. That's Snell's law
+
+Exact numbers from the drawing: 62.8° in air and 41.8° in water, and sin 62.8° / sin 41.8° = 1.333, water's refractive index. The bent path is 1.9% faster than the straight one.
+
+Physics · Least action, part 2 of 8. Next: the brachistochrone, the fastest slide between two points.
+
+#physics #optics #calculus #snellslaw #fermat
