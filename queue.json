@@ -152,6 +152,12 @@
     "posted_at": "2026-10-25T17:23:21.934942+00:00"
   },
   {
+    "id": "moon-roche",
+    "title": "What if the Moon kept getting closer? (Roche limit)",
+    "video": "moon-roche.mp4",
+    "status": "queued"
+  },
+  {
     "id": "p01-action",
     "title": "Physics 1: least action (big picture)",
     "video": "p01-action.mp4",
