@@ -162,5 +162,11 @@
     "title": "Linear algebra for ML 1: one matrix reads handwriting",
     "video": "l01-digits.mp4",
     "status": "queued"
+  },
+  {
+    "id": "s01-big",
+    "title": "Stochastic calculus 1: why an option has an exact price",
+    "video": "s01-big.mp4",
+    "status": "queued"
   }
 ]

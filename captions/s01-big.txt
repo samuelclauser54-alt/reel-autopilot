@@ -1,0 +1,14 @@
+Nobody can predict a stock's next move, but an option on it has an exact price. Getting there takes stochastic calculus.
+
+The setup (all simulated, real math):
+• Call option: pay max(price − $100, 0) in one year. Stock at $100, volatility 20%, interest 5%
+• Black–Scholes price: $10.45
+• The surprise: raise the stock's expected growth from 5% to 20% and the average payoff jumps to $23.97, but the price stays $10.45
+
+Why: own the option and short the right amount of stock (delta hedging). In this simulation the unhedged P&L swings up to $8.98, and the hedged one stays within $0.69. No risk means you earn the bank rate, so the expected growth drops out.
+
+To do the hedge exactly, you need calculus on paths with no slope anywhere. The key rule is (dW)² = dt: over 1,000 random steps the sizes add up to 25.2, but the squares add up to 0.988 ≈ t.
+
+Stochastic calculus, part 1. Next: random walks and the √t rule.
+
+#stochasticcalculus #quantfinance #blackscholes #options #math
