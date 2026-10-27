@@ -150,5 +150,17 @@
     "status": "posted",
     "media_id": "18125648585479639",
     "posted_at": "2026-10-25T17:23:21.934942+00:00"
+  },
+  {
+    "id": "p01-action",
+    "title": "Physics 1: least action (big picture)",
+    "video": "p01-action.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "l01-digits",
+    "title": "Linear algebra for ML 1: one matrix reads handwriting",
+    "video": "l01-digits.mp4",
+    "status": "queued"
   }
 ]

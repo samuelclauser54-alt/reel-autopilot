@@ -1,12 +1,12 @@
 """Post the next queued reel to Instagram. Runs from GitHub Actions cron.
 
-One slot a day, at a random minute 10:30-1:00 Chicago time (the account's
-  breakouts all went out late morning / midday). GitHub cron is unreliable (runs come
+Two slots a day (from 2026-10-27, user asked for 2/day): a random minute
+  10:30-1:00 and 5:30-7:30 pm Chicago time. GitHub cron is unreliable (runs come
   hours late or get dropped), so cron fires ~7 times per window and
   wait_for_slot() makes sure exactly one of them posts, catching up if late.
 
 Safety rules (to look like a normal creator, never like a bot):
-  * at most ONE post per day, and never two within 20 hours (3/day in Oct 2026
+  * at most TWO posts per day, never two within 5 hours (3/day in Oct 2026
     got two reels throttled to ~150 views)
   * never re-post something whose caption is already on the account
   * caption must have <= 5 hashtags and <= 2200 chars
@@ -30,11 +30,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 QUEUE = os.path.join(ROOT, "queue.json")
 IG = "https://graph.instagram.com/v25.0"
 DRY = os.environ.get("DRY_RUN", "") in ("1", "true")
-MIN_GAP = timedelta(hours=20)
+MIN_GAP = timedelta(hours=5)
 CHI = ZoneInfo("America/Chicago")
 # local hours: start, aim-by, latest catch-up
 # windows run back to back so a late cron run (GitHub often drops most of them) still catches the slot
-WINDOWS = {"daily": (10.5, 13, 22)}
+WINDOWS = {"midday": (10.5, 13, 17), "evening": (17.5, 19.5, 23.5)}
 
 
 def windows(now):
@@ -192,7 +192,7 @@ def main():
         print("queue empty, nothing to post")
         note = note or "⚠️ **Queue is empty.** Approve next week's series so posting keeps going."
     elif last and datetime.now(timezone.utc) - last < MIN_GAP:
-        print(f"last post was {last}, under 20 h ago: waiting for tomorrow")
+        print(f"last post was {last}, under 5 h ago: waiting for the next slot")
     elif SCHEDULED and not wait_for_slot(max(filter(None, [last, tried]), default=None)):
         pass
     else:

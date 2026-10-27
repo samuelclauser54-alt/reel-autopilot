@@ -1,0 +1,16 @@
+This model reads handwritten digits and gets 91.5% right on 10,000 it never saw. All of it is one 10 × 784 matrix.
+
+How it works:
+1. A 28×28 image becomes a vector of 784 numbers
+2. Each matrix row is 784 weights, which you can fold back into a 28×28 picture
+3. Blue weight = ink there counts FOR that digit, red = AGAINST (the zero row is a blue ring with a red center)
+4. Score = dot product: multiply each pixel by its weight, add everything up
+5. Matrix × vector = all ten dot products at once. Highest score wins.
+
+I trained this one myself on MNIST (50,000 training images). Everything on screen is the real model.
+
+Every neural network, up to the ones behind ChatGPT, stacks this step: matrix × vector, then a nonlinearity.
+
+Linear algebra for ML, part 1. Next: why multiply-and-add measures a match.
+
+#linearalgebra #machinelearning #neuralnetworks #deeplearning #mnist

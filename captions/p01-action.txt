@@ -1,0 +1,17 @@
+A thrown ball "chooses" its path by making one number as small as possible.
+
+That number is the action: add up (kinetic energy − potential energy) over the whole flight.
+
+Real numbers in this video (1 kg ball, 2 s flight, 10 m across):
+• the real arc: action = −7.0 J·s
+• straight across: 25.0
+• twice as high: 25.0
+• every height in between traces a valley whose bottom is exactly the real throw
+
+Minimising over whole paths (calculus of variations) gives back F = ma, and the same principle gives Snell's law, Kepler orbits and the path integral of quantum mechanics.
+
+Strictly, nature picks a stationary path (slope zero), not always the minimum. We'll get to that.
+
+Physics · Least action, part 1 of 8. Next: why light bends.
+
+#physics #leastaction #lagrangian #calculus #mathematics
