@@ -163,7 +163,9 @@
     "id": "l01-digits",
     "title": "Linear algebra for ML 1: one matrix reads handwriting",
     "video": "l01-digits.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18239388466319554",
+    "posted_at": "2026-10-27T17:51:22.148469+00:00"
   },
   {
     "id": "s01-big",
