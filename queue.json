@@ -168,5 +168,11 @@
     "title": "Stochastic calculus 1: why an option has an exact price",
     "video": "s01-big.mp4",
     "status": "queued"
+  },
+  {
+    "id": "d01-sphere",
+    "title": "Derivations 1: sphere volume, Archimedes' way",
+    "video": "d01-sphere.mp4",
+    "status": "queued"
   }
 ]

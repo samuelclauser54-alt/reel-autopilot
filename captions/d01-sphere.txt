@@ -1,0 +1,15 @@
+Put a ball snugly inside a can. The ball fills exactly 2/3 of it. Archimedes was so proud of this that he wanted a sphere and cylinder on his tomb.
+
+His argument, step by step:
+1. Take half: a dome of radius r inside a can of height r
+2. Slice at height h. Pythagoras: the dome's slice has area πr² − πh²
+3. πr² is the can's slice. πh² is the slice of an upside-down cone (radius h at height h)
+4. So at every height, dome slice = can slice − cone slice (a disk with the same area as a ring)
+5. Stack the slices: dome = πr³ − ⅓πr³ = ⅔πr³, so ball = ⁴⁄₃πr³
+6. Can around the ball = 2πr³ → ratio exactly 2/3
+
+Bonus: dV/dr = 4πr² is the surface area, because growing r adds a thin skin.
+
+Derivations, part 1. Next: why the area under the bell curve is √π.
+
+#calculus #geometry #archimedes #mathematics #mathvisualized
