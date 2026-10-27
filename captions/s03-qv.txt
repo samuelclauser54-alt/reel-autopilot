@@ -1,0 +1,16 @@
+Zoom into a Brownian path forever and it never smooths out. That single fact breaks ordinary calculus, and the fix is the most important rule in quant finance: (dW)² = dt.
+
+The argument (real simulations):
+1. A smooth curve flattens into a line when you zoom in. That line's slope is the derivative
+2. A Brownian path moves about √dt in time dt, so its slope ~ √dt/dt = 1/√dt → ∞. No derivative anywhere
+3. Add up the squared steps over [0, 1]: 0.951 (n = 100), 0.988 (n = 1,000), 1.000 (n = 10⁶). It locks onto the elapsed time
+4. For a smooth curve, the same sum → 0 (0.197, 0.020, 0.00002). That's why ordinary calculus ignores second-order terms
+5. Meanwhile the total path length blows up: 7.7 → 25 → 798
+
+So in Taylor's expansion the ½f″(dW)² term survives as ½f″dt. That's Itô's lemma: df = f′dW + ½f″dt.
+
+Test on W²: d(W²) = 2W dW + dt, so E[W_t²] = t. Over 10,000 simulated paths: 0.99 at t = 1.
+
+Stochastic calculus, part 3. Next: Itô on a stock price.
+
+#stochasticcalculus #quantfinance #brownianmotion #itocalculus #math

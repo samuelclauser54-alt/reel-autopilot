@@ -1,0 +1,16 @@
+The unit ball (radius 1) gets bigger as you add dimensions, peaks in 5D, then shrinks toward zero. Here's the derivation.
+
+Compute ∫ e^(−|x|²) over n-dimensional space two ways:
+1. It factors into n copies of ∫ e^(−x²) dx = √π → π^(n/2)
+2. In shells: shell area = d/dr (Vₙ rⁿ) = n Vₙ rⁿ⁻¹ (same trick as 4πr² for a sphere), so it's n Vₙ ∫ rⁿ⁻¹ e^(−r²) dr = n Vₙ · ½Γ(n/2)
+3. Set equal: Vₙ = π^(n/2) / Γ(n/2 + 1)
+
+Check: V₂ = π, V₃ = ⁴⁄₃π ✓
+
+Exact values: V₁ = 2, V₂ = 3.14, V₃ = 4.19, V₄ = 4.93, V₅ = 5.26 (max), V₁₀ = 2.55, V₂₀ = 0.026. Power vs factorial: the factorial always wins.
+
+The ball fills 78.5% of its square, 52.4% of its cube, 0.25% in 10D, and about 10⁻⁷⁰ in 100D. In high dimensions almost all the volume is in the corners, which is a big part of why distances get weird in machine learning.
+
+Derivations, part 3. Next: e^(iπ) = −1 as motion on a circle.
+
+#math #calculus #geometry #highdimensions #mathematics

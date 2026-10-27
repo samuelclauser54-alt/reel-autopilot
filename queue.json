@@ -222,5 +222,17 @@
     "title": "Linear algebra for ML 3: a matrix warps space",
     "video": "l03-matrix.mp4",
     "status": "queued"
+  },
+  {
+    "id": "d03-nball",
+    "title": "Derivations 3: volume of an n-dimensional ball",
+    "video": "d03-nball.mp4",
+    "status": "queued"
+  },
+  {
+    "id": "s03-qv",
+    "title": "Stochastic calculus 3: (dW)^2 = dt",
+    "video": "s03-qv.mp4",
+    "status": "queued"
   }
 ]
