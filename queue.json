@@ -179,7 +179,9 @@
     "id": "s01-big",
     "title": "Stochastic calculus 1: why an option has an exact price",
     "video": "s01-big.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18125421085702585",
+    "posted_at": "2026-10-28T17:57:19.742333+00:00"
   },
   {
     "id": "d01-sphere",
