@@ -195,7 +195,9 @@
     "id": "p02-snell",
     "title": "Physics 2: Fermat's principle -> Snell's law",
     "video": "p02-snell.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "17988898391881404",
+    "posted_at": "2026-10-29T18:00:19.174173+00:00"
   },
   {
     "id": "c01-numpy",
