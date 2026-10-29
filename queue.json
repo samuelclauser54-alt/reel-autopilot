@@ -187,7 +187,9 @@
     "id": "d01-sphere",
     "title": "Derivations 1: sphere volume, Archimedes' way",
     "video": "d01-sphere.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18010686995776938",
+    "posted_at": "2026-10-29T01:45:57.708338+00:00"
   },
   {
     "id": "p02-snell",
