@@ -203,7 +203,9 @@
     "id": "c01-numpy",
     "title": "Code 1: why NumPy is 127x faster than a loop",
     "video": "c01-numpy.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18121278671094024",
+    "posted_at": "2026-10-30T01:55:16.205922+00:00"
   },
   {
     "id": "l02-dot",
