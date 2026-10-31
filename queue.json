@@ -227,7 +227,9 @@
     "id": "p03-brach",
     "title": "Physics 3: the brachistochrone",
     "video": "p03-brach.mp4",
-    "status": "queued"
+    "status": "posted",
+    "media_id": "18112347770621020",
+    "posted_at": "2026-10-31T17:42:09.971925+00:00"
   },
   {
     "id": "s02-walk",
